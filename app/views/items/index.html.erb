@@ -1,0 +1,39 @@
+<br>
+<div class="container">
+  <h1 class="text-center">All Items</h1>
+  <br>
+  <div class="row">
+    <div class="">
+      <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><h4>Name</h4></th>
+        <th><h4>Sku</h4></th>
+        <th><h4>Unit</h4></th>
+        <th><h4>Pkg</h4></th>
+        <th><h4>Description</h4></th>
+        <th><h4>Quantity</h4></th>
+        <th><h4>Notes</h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @items.each do |item| %>
+        <td><p><strong><%= link_to item.name, item_path(item) %></p></strong</td>
+        <td><p><%= item.sku %></p></td>
+        <td><p><%= item.unit %></p></td>
+        <td><p><%= item.pkg %></p></td>
+        <td><p><%= item.description %></p></td>
+        <% if item.quantity < 20 %>
+          <td><span class="red"><p><%= item.quantity %></span></p></td>
+        <% else %>
+          <td><p><%= item.quantity %></p></td>
+        <% end %>
+        <td><p><%= item.notes %></p></td>
+      </tr>
+    </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>
+</div>

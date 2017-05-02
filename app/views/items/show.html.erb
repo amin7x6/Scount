@@ -1,0 +1,45 @@
+<div class="container">
+
+    <div class="row">
+      <div class="col-md-8">
+        <h1><%= @item.name %></h1><hr>
+        <p><strong>Sku :</strong> <%= @item.sku %></p>
+        <p><strong>Unit :</strong> <%= @item.unit %></p>
+        <p><strong>Pkg :</strong> <%= @item.pkg %></p>
+        <p><strong>Description :</strong> <%= @item.description %></p>
+        <% if @item.quantity < 20 %>
+          <p><strong>Quantity :</strong><span class="red"> <%= @item.quantity %></span></p>
+        <% else %>
+          <p><strong>Quantity :</strong> <%= @item.quantity %></p>
+        <% end %>
+        <p><strong>Notes :</strong> <%= @item.notes %></p>
+        <p class="">
+                <strong>Submited</strong> <%= time_ago_in_words(@item.created_at) %> Ago
+              </p><br>
+    </div>
+      <div class="col-md-4"></div>
+
+    </div>
+    <!-- end of row -->
+
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default"><%= link_to "Home",
+        items_path %></button>
+      </div>
+      <% if can? :edit, @item %>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default"><%= link_to "Edit",
+        edit_item_path(@item) %></button>
+        <% end %>
+      </div>
+      <% if can? :destroy, @item %>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default"><%= link_to "Delete",
+        item_path(@item), method: :delete,
+        data: {confirm: "Are you sure?"}
+        %></button>
+        <% end %>
+      </div>
+
+
+</div>

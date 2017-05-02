@@ -1,0 +1,49 @@
+<% if @item.errors.any? %>
+  <h2><%= pluralize(@item.errors.count, "error") %> prevent this Item
+      from saving</h2>
+  <ul>
+    <% @item.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<%= form_for @item do |f| %>
+  <p class="form-group">
+    <%= f.label :name  %><br>
+    <%= f.text_field :name, class: "form-control" %>
+  </p>
+  <div class="form-group">
+   <%= f.collection_select :category_id , Category.order(:name), :id, :name,
+                           {},
+                           { class: 'chosen-select', style: 'width: 350px'} %>
+ </div>
+  <p class="form-group">
+    <%= f.label :sku  %><br>
+    <%= f.text_field :sku, class: "form-control" %>
+  </p>
+  <p class="form-group">
+    <%= f.label :unit  %><br>
+    <%= f.text_field :unit, class: "form-control" %>
+  </p>
+  <p class="form-group">
+    <%= f.label :pkg  %><br>
+    <%= f.text_field :pkg, class: "form-control" %>
+  </p>
+  <p class="form-group">
+    <%= f.label :description  %><br>
+    <%= f.text_area :description, class: "form-control" %>
+  </p>
+  <p class="form-group">
+    <%= f.label :quantity  %><br>
+    <%= f.text_field :quantity, class: "form-control" %>
+  </p>
+  <p class="form-group">
+    <%= f.label :notes  %><br>
+    <%= f.text_area :notes, class: "form-control" %>
+  </p>
+  <p class="form-group">
+    <%= f.submit "Submit", class: 'form-control' %>
+  </p>
+<% end %>

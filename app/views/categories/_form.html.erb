@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>New Category</h1>
+  <%= @category.errors.full_messages.join(', ') %>
+    <%= form_for @category do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+      <%= f.submit "submit", class: "form-control" %>
+    </div>
+  <%end %>
+</div>

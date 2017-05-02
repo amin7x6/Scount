@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="well">
+
+    <h1 class="text-center">Sign In</h1>
+    <%= form_tag sessions_path do  %>
+    <div class="form_group">
+    <p class="">
+      <%= label_tag :email  %><br>
+      <%= email_field_tag :email%>
+    </p>
+    <p class="">
+      <%= label_tag :password  %><br>
+      <%= password_field_tag :password %>
+    </p>
+    <p class="">
+      <%= submit_tag "Log In", class: "form-control"%>
+    </p>
+  </div>
+  <% end %>
+  </div>
+</div>
