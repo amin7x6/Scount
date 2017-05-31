@@ -1,30 +1,48 @@
 @import "bootstrap-sprockets";
+@import "bootswatch/paper/variables";
 @import "bootstrap";
+@import "bootswatch/paper/bootswatch";
 
-body {
-  font-family: 'Ubuntu', sans-serif;
-//   background: #ffd89b; /* fallback for old browsers */
-//   background: -webkit-linear-gradient(to left, #ffd89b, #19547b); /* Chrome 10-25, Safari 5.1-6 */
-//   background: linear-gradient(to left, #ffd89b, #19547b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
 
-input[type="submit"] {
-    background-color: lightblue;
-    color: black;
-    font-weight: bold;
-    font-size: 18px;
-    letter-spacing: 1px;
-    height: 50px;
+
+.navbar-inverse {
+    background-color: #1A237E;
+    height: 90px;
 }
+
 .red{
-  color: red;
+  color: #E51C23;
   font-weight: bold;
 }
+.yellow{
+  color: #FF9800;
+  font-weight: bold;
+  font-size: 18px;
+}
 
-.jumbotron{
-  min-height: 600px;
-  // background-image: url("http://toolry.com/wp-content/uploads/2014/03/TOOLRY-Your-Creative-Workspace-Downtown-Lynchburg-Virginia.jpg");
-  // background-repeat: no-repeat;
-  // background-position: cover;
-  // color:#ffffff;
+.navbar-inverse .navbar-nav > li > a {
+    color: #e0e0e0;
+}
+.panel-heading {
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.panel-title {
+    font-size: 25px;
+}
+.notify-me {
+    font-size: 20px;
+    color: #fff;
+}
+
+textarea, textarea.form-control, input.form-control, input[type=text], input[type=password], input[type=email], input[type=number], [type=text].form-control, [type=password].form-control, [type=email].form-control, [type=tel].form-control, [contenteditable].form-control {
+    font-size: 18px;
+    padding: 10px;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    color: #ffffff;
 }

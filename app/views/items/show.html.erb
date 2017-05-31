@@ -1,23 +1,39 @@
+<%= render "layouts/navbar" %>
 <div class="container">
 
     <div class="row">
-      <div class="col-md-8">
-        <h1><%= @item.name %></h1><hr>
-        <p><strong>Sku :</strong> <%= @item.sku %></p>
-        <p><strong>Unit :</strong> <%= @item.unit %></p>
-        <p><strong>Pkg :</strong> <%= @item.pkg %></p>
-        <p><strong>Description :</strong> <%= @item.description %></p>
-        <% if @item.quantity < 20 %>
-          <p><strong>Quantity :</strong><span class="red"> <%= @item.quantity %></span></p>
-        <% else %>
-          <p><strong>Quantity :</strong> <%= @item.quantity %></p>
-        <% end %>
-        <p><strong>Notes :</strong> <%= @item.notes %></p>
-        <p class="">
-                <strong>Submited</strong> <%= time_ago_in_words(@item.created_at) %> Ago
-              </p><br>
-    </div>
-      <div class="col-md-4"></div>
+      <div class="col-md-6"><br><br>
+        <h1><%= @item.name %></h1><hr><br>
+
+        <div class="col-md-7">
+          <h4><strong>Barcode :</strong> <%= @item.barcode %></h4>
+        </div>
+        <div class="col-md-5">
+          <h4><strong>Unit :</strong> <%= @item.unit %></h4>
+        </div>
+        <div class="col-md-7">
+          <h4><strong>Pkg :</strong> <%= @item.pkg %></h4>
+        </div>
+        <div class="col-md-5">
+          <h4 class=""><strong>Quantity :</strong> <%= @item.quantity %></h4>
+        </div>
+        <div class="col-md-7">
+          <h4><strong>Reorder Level :</strong> <%= @item.reorderLevel %></h4>
+        </div>
+        <div class="col-md-5">
+          <h4><strong>Reorder Time :</strong> <%= @item.quantity - @item.reorderLevel %></h4>
+        </div>
+        <div class="col-md-6"><br><br><br>
+          <p><strong>Submited</strong> <%= time_ago_in_words(@item.created_at) %> Ago</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+      <% if Rails.application.assets.find_asset("#{@item.po_number}.png").present? %>
+        <%= image_tag ("#{@item.po_number}.png"), style:"min-width: 550px;", class: "img-responsive" %>
+      <% else %>
+        <%= image_tag ("default.png"), style:"min-width: 550px;"  %>
+      <% end %>
+      </div>
 
     </div>
     <!-- end of row -->

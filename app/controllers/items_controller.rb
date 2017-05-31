@@ -3,6 +3,9 @@ class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
 
+
+  respond_to? :html, :json
+
   def index
     @item = Item.new
     @items = Item.all.order("created_at DESC")
@@ -11,16 +14,17 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item =Item.new
+    @item = Item.new
     @category = Category.new
   end
 
   def create
+    @found_item = Item.find_by_barcode(params[:barcode])
     @category = Category.new
     @item = Item.new item_params
     @item.user = current_user
 
-    if @item && @category.save && @item.quantity < 20
+    if @item.save 
       ItemsMailer.notify_item_owner(@item).deliver_now
       redirect_to items_path
     else
@@ -36,12 +40,17 @@ class ItemsController < ApplicationController
   end
 
   def update
-    redirect_to root_path, alert: "access denied" unless can? :update, @item
-    if @item.update item_params
-      redirect_to @item, notice: "Item Created"
-    else
-      render :edit
+
+    respond_to do |format|
+      if @item.update_attributes item_params
+        format.html { redirect_to(@item, :notice => 'Item was successfully updated.') }
+        format.json { respond_with_bip(@item) }
+      else
+        format.html { render :action => "edit" }
+        format.json { respond_with_bip(@item) }
+      end
     end
+
   end
 
   def destroy
@@ -57,8 +66,12 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-     params.require(:item).permit(:name, :sku, :unit, :pkg, :description, :quantity, :notes, :category)
+     params.require(:item).permit(:name, :reorderLevel, :unit, :pkg,
+                                  :description, :quantity, :reorderTime,
+                                  :category, :delivered, :pickup, :arrive,
+                                  :adjust, :convert, :total, :barcode, :category_id)
   end
+
 
 
 

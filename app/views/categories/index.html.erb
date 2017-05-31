@@ -1,6 +1,18 @@
+<%= render "layouts/navbar" %>
 <div class="container">
-  <h1>Category Index Page</h1>
-  <% @categories.each do |category| %>
-    <%= category.name %>
-  <% end %>
+  <div class="col-md-8 col-md-offset-2">
+    <h3 class="">All Category List</h3><br>
+    <% @categories.each do |category| %>
+    <div>
+      <h3><%=link_to category.name, category_path(category) %></h3>
+        <%= link_to "Edit", edit_category_path(category) %> |
+        <%= link_to "Delete", edit_category_path(category),
+                                            method: :delete,
+                                            data: { confirm: "Are you Sure?"} %>
+
+    </div>
+    <hr>
+      <% end %>
+  </div>
+
 </div>

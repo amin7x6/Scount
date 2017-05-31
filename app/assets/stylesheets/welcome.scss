@@ -1,3 +1,29 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#container1, #sliders {
+    min-width: 310px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+#container1 {
+    height: 500px;
+}
+
+#mostpop, #newarr{
+  height: 400px;
+  min-width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.style:hover{
+  transition: all 1s ease;
+  transform: scale(1.2);
+ -moz-transform: scale(1.2);
+ -webkit-transform: scale(1.2);
+ -o-transform: scale(1.2);
+  }
+  .text-size{
+    font-size: 15px;
+    margin-bottom: 24px;
+  }

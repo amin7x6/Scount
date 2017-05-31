@@ -1,8 +1,232 @@
-<br>
-<div class="container">
-  <div class="text-center">
-    <h1>Welcome to Home Page</h1><br>
-    <h1>This App can manage your inventory business</h1>
-    <h3>easily control your stock, manage orders, and run your business efficiently</h3>
-  </div>
+<%= render "layouts/navbar" %>
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                  <% if @midnight.upto(@noon).include?(@current_time) %>
+                    <%= "Good Morning" %> <small><%= @current_user.first_name.capitalize %></small>
+                    <% elsif @noon.upto(@five_pm).include?(@current_time) %>
+                        <%= "Good Afternoon" %> <small><%= @current_user.first_name.capitalize %></small>
+                    <% elsif @five_pm.upto(@eight_pm).include?(@current_time) %>
+                       <%= "Good Evening" %> <small><%= @current_user.first_name.capitalize %></small>
+                    <% elsif @eight_pm.upto(@midnight + 1.day).include?(@current_time) %>
+                       <%= "Good Night" %> <small><%= @current_user.first_name.capitalize %></small>
+                    <% end %>
+                </h3>
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-dashboard"></i> Dashboard
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-lg-3 col-md-6 adj-he">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-3">
+                      <i class="fa fa-money fa-4x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                      <div class="huge">Today Sales!</div>
+                      <div class="text-size"><%= @i.name %></div><br>
+                  </div>
+                </div>
+              </div>
+              <a href="#">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-3">
+                      <i class="fa fa-truck fa-4x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                    <div class="huge">New Arrived!</div>
+                    <% @items.each do |item| %>
+                      <% if item.created_at == DateTime.now.to_date %>
+                        <div><%= item.name %></div>
+                      <% end %>
+                    <% end %>
+                        <p> 0 </p>
+                      <%= DateTime.now.to_date%>
+                  </div>
+                </div>
+              </div>
+              <a href="#">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+              <div class="panel-heading">
+                <div class="row" id="">
+                  <div class="col-xs-3">
+                      <i class="fa fa-shopping-cart fa-4x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                  <% if @items.where(quantity: 84..144).present? %>
+                      <div class="huge">Order Soon!</div>
+                      <p><%= @items.where(quantity: 84..144).count %></p><br>
+                      <div></div>
+                      <div></div>
+                  <% else %>
+                      <div class="huge"> 0 </div>
+                      <p>Inventory Full</p>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+              <a href="/items">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+              <div class="panel-heading">
+                <div class="row" id="">
+                  <div class="col-xs-3">
+                      <i class="fa fa-exclamation-triangle fa-4x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                    <% if @items.where(quantity: 0..84).present? %>
+                        <div class="huge">Low Stock!</div>
+                        <p><%= @items.where(quantity: 0..84).count %></p><br>
+                    <% else %>
+                        <div class="huge"> 0 </div>
+                        <p>Inventroy Full</p>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <a href="/items">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div><br>
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="row" id="mostpop">
+
+                </div>
+              </div>
+              <a href="#">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="panel panel-green">
+              <div class="panel-heading">
+                <div class="row" id="newarr">
+
+                </div>
+              </div>
+              <a href="#">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><i class="fa fa-info"></i> Most Popular Items</h3>
+                </div>
+                <div class="panel-body">
+                  <% @items.each do |item| %>
+                    <% if item.po_number == "M-0046" %>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                      <div class="panel panel-primary">
+                        <div class="panel-heading"><%= item.name %></div>
+                        <div class="panel-body">
+                          <p><strong>Quantity : </strong><%= item.quantity %></p>
+                          <%= image_tag "M-0046.png", class: "img-responsive style" %>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                    <% if item.po_number == "M-0014" %>
+                      <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="panel panel-primary">
+                          <div class="panel-heading"><%= item.name %></div>
+                          <div class="panel-body">
+                            <p><strong>Quantity : </strong><%= item.quantity %></p>
+                            <%= image_tag "M-0014.png", class: "img-responsive style" %>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                    <% if item.po_number == "M-0012" %>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                      <div class="panel panel-primary">
+                        <div class="panel-heading"><%= item.name %></div>
+                        <div class="panel-body">
+                          <p><strong>Quantity : </strong><%= item.quantity %></p>
+                          <%= image_tag "M-0012.png", class: "img-responsive style" %>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                    <% if item.po_number == "M-0030" %>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                      <div class="panel panel-primary">
+                        <div class="panel-heading"><%= item.name %></div>
+                        <div class="panel-body">
+                          <p><strong>Quantity : </strong><%= item.quantity %></p>
+                          <%= image_tag "M-0030.png", class: "img-responsive style" %>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
 </div>
+<!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->

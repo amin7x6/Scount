@@ -1,39 +1,98 @@
-<br>
+<%= render "layouts/navbar" %><br><br>
 <div class="container">
-  <h1 class="text-center">All Items</h1>
-  <br>
   <div class="row">
-    <div class="">
-      <table class="table table-hover">
-    <thead>
-      <tr>
-        <th><h4>Name</h4></th>
-        <th><h4>Sku</h4></th>
-        <th><h4>Unit</h4></th>
-        <th><h4>Pkg</h4></th>
-        <th><h4>Description</h4></th>
-        <th><h4>Quantity</h4></th>
-        <th><h4>Notes</h4></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <% @items.each do |item| %>
-        <td><p><strong><%= link_to item.name, item_path(item) %></p></strong</td>
-        <td><p><%= item.sku %></p></td>
-        <td><p><%= item.unit %></p></td>
-        <td><p><%= item.pkg %></p></td>
-        <td><p><%= item.description %></p></td>
-        <% if item.quantity < 20 %>
-          <td><span class="red"><p><%= item.quantity %></span></p></td>
-        <% else %>
-          <td><p><%= item.quantity %></p></td>
-        <% end %>
-        <td><p><%= item.notes %></p></td>
-      </tr>
-    </tbody>
+    <div class="col-md-8">
+      <div>
+        <h3>All Items</h3>
+      </div><br>
+    </div>
+    <div class="col-md-4 pull-right">
+      <% if @items.where(quantity: 85..144).present? && @items.where(quantity: 0..84).present? %>
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p class="notify-me"><strong><%= @items.where(quantity: 0..84).count %> Low Stock!</strong></p>
+        </div>
+        <div class="alert alert-dismissible alert-warning">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p class="notify-me"><strong><%= @items.where(quantity: 85..144).count %> Order Soon!</strong></p>
+        </div>
+      <% elsif @items.where(quantity: 84..100).present? %>
+        <div class="alert alert-dismissible alert-warning">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p class="notify-me"><strong><%= @items.where(quantity: 85..144).count %> Order Soon!</strong></p>
+        </div>
+      <% elsif @items.where(quantity: 0..84).present? %>
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p class="notify-me"><strong><%= @items.where(quantity: 0..84).count %> Low Stock!</strong></p>
+        </div>
       <% end %>
-    </table>
+    </div>
   </div>
-</div>
+
+
+  <div class="bs-example">
+    <div class="panel-group" id="accordion">
+      <% @categories.each_with_index do |category, index| %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion"
+               href="#collapseOne<%= index.to_s %>"><%= category.name %>
+             </a>
+           </h3>
+          </div>
+          <div id="collapseOne<%= index.to_s %>" class="panel-collapse collapse in">
+            <div class="row">
+              <div class="">
+                <div class="panel-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th><h4>SKU Number</h4></th>
+                      <th><h4>Unit Number</h4></th>
+                      <th><h4>Name</h4></th>
+                      <th><h4>Unit</h4></th>
+                      <th><h4>Category</h4></th>
+                      <th><h4>Quantity</h4></th>
+                      <th><h4>Reorder Level</h4></th>
+                      <th><h4>Reorder Time</h4></th>
+                    </tr>
+                  </thead>
+                  <% category.items.each do |item| %>
+                    <% if category.name === item.pkg  %>
+                        <tbody>
+                          <tr>
+                            <td><p><%= link_to item.barcode, item_path(item)%></p></td>
+                            <td><p><%= item.po_number%></p></td>
+                            <td><p><%= link_to item.name, item_path(item)%></p></td>
+                            <td><p><%= item.unit%></p></td>
+                            <td><p><%= item.category.name %></p></td>
+                            <% if item.quantity < 84 %>
+                              <td><p class="red"><%= item.quantity %></p></td>
+                            <% elsif item.quantity < 144 && item.quantity > 85  %>
+                              <td><p class="yellow"><%= item.quantity %></p></td>
+                            <% else %>
+                              <td><p><%= item.quantity%></p></td>
+                            <% end %>
+                            <td><p><%= item.reorderLevel %></p></td>
+                            <% if item.quantity < 84 %>
+                              <td><p class="red"><%= item.quantity - item.reorderLevel %> Low Stock!</p></td>
+                            <% elsif  item.quantity < 144 && item.quantity > 85 %>
+                              <td><p class="yellow"><%= item.quantity - item.reorderLevel %> Order Soon!</p></td>
+                            <% else %>
+                              <td><p><%= item.quantity - item.reorderLevel %></p></td>
+                            <% end %>
+                          </tr>
+                        </tbody>
+                    <% end %>
+                  <% end %>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
