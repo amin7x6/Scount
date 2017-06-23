@@ -1,5 +1,5 @@
 # Scount 
-Live link: https://vast-falls-58073.herokuapp.com
+Live Link: https://vast-falls-58073.herokuapp.com
 
 Scount is an inventory tracking application. Users are able to scan barcodes and they will automatically update the quantity to the inventory database. They can also manually create new items, and see past reports with information on re-order levels and re-order quantity. Managers can also receive notifications when stock reaches a certain minimum.    
 
