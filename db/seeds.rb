@@ -1,6 +1,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-
+#
+#
 
 ["BULK", "PAILS", "DRUMS", "CASES(1Qtx12)", "CASES(5Qtx4)"].each do |n|
   Category.create(name: n)
@@ -94,7 +95,6 @@ items_list = [
 ["0636173872153","PAILS", "AW46 HYD", "PAILS","M-0077", 172, 720, 2],
 ["0636173872160","PAILS", "AW68 HYD", "PAILS","M-0097", 121, 144, 2],
 ["0636173872221","PAILS", "TRACTOR OIL","PAILS","M-0094", 130, 84, 2]
-
 ]
 
 items_list.each do |barcode ,unit, name, pkg, po_number, quantity, reorderLevel, category_id|
